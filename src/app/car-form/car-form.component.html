@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Car Form</h1>
+  <form [formGroup]="checkoutForm" (ngSubmit)="add()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" formControlName="name" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="brand">Brand</label>
+      <input type="text" class="form-control" formControlName="brand" id="brand" required>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input type="text" class="form-control" formControlName="country" id="country" required>
+    </div>
+    <div class="form-group">
+      <label for="registration">Registration</label>
+      <input type="date" formControlName="registration" class="form-control" id="registration" required>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!checkoutForm.valid">{{button}}</button>
+
+
+  </form>
+
+</div>
