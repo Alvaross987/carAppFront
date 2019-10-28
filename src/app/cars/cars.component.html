@@ -1,14 +1,15 @@
+<app-car-form (newCar)='add($event)'></app-car-form>
+<br>
 <form>
     <div class="form-group form-inline">
-        Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+        Filter by brand or registration: <input class="form-control ml-2" type="text" [formControl]="filter" />
+        <a  class="btn btn-success" (click)= "this.getCars()">RELOAD</a>
     </div>
 </form>
-
 <table class="table table-striped">
     <thead>
         <tr>
             <th> Id </th>
-            <th> Name </th>
             <th> Brand </th>
             <th> Country </th>
             <th> Registration </th>
@@ -17,10 +18,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let car of cars$ | async; index as i">
+            
             <th scope="row">{{ car.id }}</th>
-            <td>
-                {{car.name}}
-            </td>
             <td>
                 <ngb-highlight [result]="car.brand" [term]="filter.value"></ngb-highlight>
             </td>
@@ -30,18 +29,9 @@
             <td>
                 <ngb-highlight [result]="car.registration | date:'shortDate'" [term]="filter.value"></ngb-highlight>
             </td>
-            <td>
-                <a href="#" (click)='child.updateMode(updateCar(car.id))'>Modify</a>
-            </td>
-            <td>
-                <a href="#" (click)='deleteCar(car.id)'>Delete</a>
-            </td>
+        <a class="btn btn-link" routerLink="/car/{{car.id}}">Details</a>
         </tr>
     </tbody>
 </table>
 
 
-
-
-
-<app-car-form #child (newCar)='add($event)'></app-car-form>

@@ -13,12 +13,12 @@ import { Observable } from 'rxjs';
   providers: [DatePipe]
 })
 export class CarsComponent implements OnInit {
+  
   car: Car;
-  UpdateMode = false;
   cars: Car[] = [];
   cars$: Observable<Car[]>;
   filter = new FormControl('');
-
+  
   search(text: string, pipe: PipeTransform): Car[] {
     return this.cars.filter(car => {
       const term = text.toLowerCase();
@@ -37,34 +37,20 @@ export class CarsComponent implements OnInit {
 
   add(car: Car): void {
     if (!car) { return; }
-    if (this.UpdateMode) {
-      this.carService.updateCar(car as Car).subscribe();
-      this.UpdateMode = false;
-    } else {
       this.carService.addCar(car as Car)
         .subscribe(car => {
           this.cars.push(car);
         });
-    }
     this.getCars();
   }
 
 
   getCars(): void {
+    this.cars = null;
     this.carService.getCars().subscribe((cars) => {
       this.cars = cars;
       this.initFilter();
     });
-  }
-  updateCar(id: number): Car {
-    this.UpdateMode = true;
-    this.car = this.cars.find(c => c.id == id);
-    return this.car;
-  }
-  deleteCar(id: number) {
-    if (!id) { return; }
-    this.carService.deleteCar(id).subscribe();
-    this.getCars();
   }
 
   initFilter() {

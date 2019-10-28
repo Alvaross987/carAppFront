@@ -17,7 +17,6 @@ export class CarFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private carService: CarService) {
     this.checkoutForm = this.formBuilder.group({
-      name: new FormControl(''),
       brand: new FormControl(''),
       country: new FormControl(''),
       registration: new FormControl(Date)
@@ -28,11 +27,24 @@ export class CarFormComponent implements OnInit {
     this.UpdateMode = true;
     this.idUpdate = car.id;
     this.button = 'update';
+    var str:String;
+    var d = new Date(car.registration);
+    str = d.getFullYear().toString();
+    if((d.getMonth()+1) < 10){
+      str+= "-0" + (d.getMonth()+1);
+    }else{
+      str+= "-" + (d.getMonth()+1);
+    }
+    if(d.getDate() < 10){
+      str+= "-0" + d.getDate();
+    }else{
+      str+= "-" + d.getDate();
+    }
+    
     this.checkoutForm.setValue({
-      name: (car.name),
       brand: (car.brand),
       country: (car.country),
-      registration: (car.registration)
+      registration: (str)
     });
   }
 

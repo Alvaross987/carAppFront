@@ -8,28 +8,28 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { CarsComponent } from './cars/cars.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
 import { CarFormComponent } from './car-form/car-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CarComponent } from './car/car.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarsComponent,
-    CarFormComponent
+    CarFormComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }),
-      FormsModule,
-      ReactiveFormsModule,
-      NoopAnimationsModule,
-      NgbModule,
-      CommonModule
-  
+    FormsModule,
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    NgbModule,
+    CommonModule,
+    AppRoutingModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

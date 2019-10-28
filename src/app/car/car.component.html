@@ -1,0 +1,26 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Country</th>
+      <th scope="col">Registration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">{{ car.id }}</th>
+      <td>
+        {{ car.brand }}
+      </td>
+      <td>{{ car.country }}</td>
+      <td>{{ car.registration | date:'shortDate' }}</td>
+    </tr>
+
+        <a class="btn btn-primary" (click)='child.updateMode(updateCar())'>Modify</a>
+        <a class="btn btn-danger" (click)='deleteCar(car.id)'>Delete</a>
+        <a class="btn btn-warning" (click)='goBack()'>Go Back</a>
+    
+    </tbody>
+  </table>
+  <app-car-form id="child" #child hidden (newCar)='update($event)'></app-car-form>
