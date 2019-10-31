@@ -22,7 +22,7 @@ export class CarsComponent implements OnInit {
   search(text: string, pipe: PipeTransform): Car[] {
     return this.cars.filter(car => {
       const term = text.toLowerCase();
-      return car.brand.toLowerCase().includes(term)
+      return car.brand.name.toLowerCase().includes(term)
         || pipe.transform(car.registration, 'shortDate').includes(term);
     });
   }

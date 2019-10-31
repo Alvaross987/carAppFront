@@ -23,6 +23,7 @@
     "@angular/router": "~8.2.9",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "angular-in-memory-web-api": "^0.9.0",
+    "jsonwebtoken": "^8.5.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

@@ -22,12 +22,13 @@ export class CarComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.carService.getCar(id).subscribe(car => {
       if(!car) this.goBack();
-      this.car = car;
+      car.find(car => {
+        if (car.id = id) this.car = car;
+      });
     });
-    
   }
+
   updateCar(): Car {
-    console.log(this.car);
     document.getElementById("child").hidden=false;
     return this.car;
   }

@@ -12,21 +12,6 @@ export class CarService {
   private baseUrl = 'http://localhost:8080/app/cars';
   constructor(private http: HttpClient
   ) { }
-  /*
-      getCars(): Observable<Car[]> {
-          const url = `${this.baseUrl}/`;
-          return this.http.get<Car[]>(url);
-      }
-  
-      addCar(car : Car): Observable<Car> {
-        const url = `${this.baseUrl}/`;
-        return this.http.post<Car>(url, car);
-    }
-  
-    updateCar(id : number, car : Car): Observable<Car> {
-      const url = ``${this.baseUrl}/${id}`;
-      return this.http.put<Car>(url, car);
-  }*/
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -39,14 +24,15 @@ export class CarService {
       );
   }
 
-  getCar(id: number): Observable<Car> {
+  getCar(id: number): Observable<Car[]> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Car>(url).pipe(
-      catchError(this.handleError<Car>(`getCar id=${id}`))
+    return this.http.get<Car[]>(url).pipe(
+      catchError(this.handleError<Car[]>(`getCar id=${id}`, []))
     );
   }
 
   updateCar(car: Car): Observable<any> {
+    //@ts-ignore
     car.registration+="T00:00:00.000+02:00";
     const url = `${this.baseUrl}/${car.id}`;
     return this.http.put(url, car, this.httpOptions).pipe(
@@ -55,6 +41,7 @@ export class CarService {
   }
   
   addCar(car: Car): Observable<Car> {
+    //@ts-ignore
     car.registration+="T00:00:00.000+02:00";
     return this.http.post<Car>(this.baseUrl, car, this.httpOptions).pipe(
       catchError(this.handleError<Car>('addCar'))
