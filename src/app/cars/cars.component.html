@@ -29,7 +29,9 @@
             <td>
                 <ngb-highlight [result]="car.registration | date:'shortDate'" [term]="filter.value"></ngb-highlight>
             </td>
+            <td>
             <a class="btn btn-link" routerLink="/cars/{{car.id}}">Details</a>
+            </td>
         </tr>
     </tbody>
 </table>

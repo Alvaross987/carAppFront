@@ -16,16 +16,15 @@ export class CarComponent implements OnInit {
   car: Car;
   constructor(private route: ActivatedRoute,
     private carService: CarService,
-    private location: Location) { }
+    private location: Location) {}
 
   getCar(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.carService.getCar(id).subscribe(car => {
-      if(!car) this.goBack();
-      car.find(car => {
-        if (car.id = id) this.car = car;
-      });
+      this.car = car[0];
+      if(this.car == undefined) this.goBack();
     });
+    
   }
 
   updateCar(): Car {
