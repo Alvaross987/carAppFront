@@ -1,0 +1,5 @@
+nav{
+    z-index: 10000;
+    position: fixed;
+    width: 100%;
+}

@@ -1,34 +1,23 @@
-<table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">Brand</th>
-      <th scope="col">Model</th>
-      <th scope="col">Color</th>
-      <th scope="col">Country</th>
-      <th scope="col">Registration</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th scope="row">{{ car.id }}</th>
-      <td>
-        {{ car.brand.name }}
-      </td>
-      <td>
-        {{ car.model }}
-      </td>
-      <td>
-        {{ car.color }}
-      </td>
-      <td>{{ car.country.name }}</td>
-      <td>{{ car.registration | date:'shortDate' }}</td>
-    </tr>
-
-        <a class="btn btn-primary" (click)='child.updateMode(updateCar())'>Modify</a>
-        <a class="btn btn-danger" (click)='deleteCar(car.id)'>Delete</a>
-        <a class="btn btn-warning" (click)='goBack()'>Go Back</a>
-    
-    </tbody>
-  </table>
-  <app-car-form id="child" #child hidden (newCar)='update($event)'></app-car-form>
+<app-nav-bar></app-nav-bar>
+<div class="container-fluid text-center justify-content-center modal-dialog-centered">
+  <div class="row">
+      <div class=" col-sm-2"></div>
+  <div class=" col-sm-4">
+    <img src="https://images1.autocasion.com/unsafe/900x600/actualidad/wp-content/uploads/2016/07/q7_aper.jpg"
+      class="img-fluid">
+  </div>
+  <div class="col-sm-4">
+    <p><span class="font-weight-bold">Id:</span> {{ car?.id }}</p>
+    <p><span class="font-weight-bold">Brand:</span> {{ car?.brand.name }}</p>
+    <p><span class="font-weight-bold">Model:</span> {{ car?.model }}</p>
+    <p><span class="font-weight-bold">Color:</span> {{ car?.color }}</p>
+    <p><span class="font-weight-bold">Country:</span> {{ car?.country.name }}</p>
+    <p><span class="font-weight-bold">Registration:</span> {{ car?.registration | date:'longDate' }}</p>
+    <br>
+    <a *ngIf="admin" class="btn btn-primary" (click)='child.updateMode(updateCar())'>Modify</a>
+    <a *ngIf="admin" class="btn btn-danger" (click)='deleteCar(car.id)'>Delete</a>
+    <a class="btn btn-warning" (click)='goCars()'>Go Back</a>
+  </div>
+</div>
+</div>
+<app-car-form id="child" #child hidden (newCar)='update($event)'></app-car-form>

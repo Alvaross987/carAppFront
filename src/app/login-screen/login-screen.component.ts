@@ -11,39 +11,48 @@ import { Location } from '@angular/common';
   styleUrls: ['./login-screen.component.css']
 })
 export class LoginScreenComponent implements OnInit {
-  checkoutForm: FormGroup;
-  token: String;
+  LogginForm: FormGroup;
+  RegisterForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
     private location: Location) {
-    this.checkoutForm = this.formBuilder.group({
+    this.LogginForm = this.formBuilder.group({
       username: new FormControl(''),
       password: new FormControl('')
-    });
-   }
+    }),
+      this.RegisterForm = this.formBuilder.group({
+        username: new FormControl(''),
+        email: new FormControl(''),
+        password: new FormControl(''),
+        firstname: new FormControl(''),
+        lastname: new FormControl(''),
+      });
+  }
 
-   login(user: User){
-     user= this.checkoutForm.value;
-     if(!user) return;
-     const a = this.userService.login(user).subscribe(token => {
-       localStorage.setItem("access_token",token[0]);
-    });
-    (async () => { 
-      await this.sleep(300);
+  login(user: User) {
+    user = this.LogginForm.value;
+    if (!user) return;
+    const a = this.userService.login(user).subscribe(token => {
+      localStorage.setItem("access_token", token[0]);
       this.goCars();
-    })();
-    
-    
-   }
-   sleep(n: number): any{
-    return new Promise(resolve => setTimeout(resolve, n));
-   }
-   goCars(){
-     //this.router.navigateByUrl("/");
-     this.location.back();
-   }
+    });
+
+  }
+
+  register(user: User) {
+    user = this.RegisterForm.value;
+    const a = this.userService.addUser(user).subscribe();
+    this.RegisterForm.reset();
+  }
+
+
+
+  goCars() {
+    //this.router.navigateByUrl("/");
+    this.location.back();
+  }
   ngOnInit() {
 
   }

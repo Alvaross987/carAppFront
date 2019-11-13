@@ -15,6 +15,8 @@ import { CarComponent } from './car/car.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { BrandCountryFormComponent } from './brand-country-form/brand-country-form.component';
 
 export function tokenGetter() {
   const token = localStorage.getItem("access_token");
@@ -27,7 +29,9 @@ export function tokenGetter() {
     CarsComponent,
     CarFormComponent,
     CarComponent,
-    LoginScreenComponent
+    LoginScreenComponent,
+    NavBarComponent,
+    BrandCountryFormComponent
   ],
   imports: [
     BrowserModule,

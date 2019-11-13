@@ -1,0 +1,41 @@
+<app-nav-bar></app-nav-bar>
+<div *ngIf='admin' class="container">
+    <h1>{{ F }} Form</h1>
+    <form [formGroup]="checkoutForm" (ngSubmit)="add()">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="name" id="name" required>
+        </div>
+        <button class="btn btn-primary" [disabled]="!checkoutForm.valid">{{button}}</button>
+        <button class="btn btn-primary" *ngIf='update' (click)='cancelUpdate()'>Cancel</button>
+    </form>
+</div>
+
+<div class="container">
+    <h1>{{ F }} list</h1>
+    <table class="table table-striped">
+
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Name </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let element of elements">
+
+                <th scope="row">{{ element.id }}</th>
+                <td>
+                    {{element.name}}
+                </td>
+                <td *ngIf='admin'>
+                    <button class="btn btn-link" (click)="updateMode(element)">Update</button>
+                </td>
+                <td *ngIf='admin'>
+                    <button class="btn btn-link" (click)="delete(element.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

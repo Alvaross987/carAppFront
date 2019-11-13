@@ -1,37 +1,44 @@
-<app-car-form (newCar)='add($event)'></app-car-form>
+<app-nav-bar></app-nav-bar>
+<app-car-form *ngIf="admin" (newCar)='add($event)'></app-car-form>
 <br>
-<form>
-    <div class="form-group form-inline">
-        Filter by brand or registration: <input class="form-control ml-2" type="text" [formControl]="filter" />
-        <a class="btn btn-success" (click)="this.getCars()">RELOAD</a>
-    </div>
-</form>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th> Id </th>
-            <th> Brand </th>
-            <th> Country </th>
-            <th> Registration </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let car of cars$ | async; index as i">
+<div class="container">
+    <h1>Car List</h1>
+    <form>
+        <div class="form-group form-inline">
+            Filter by brand or registration: <input class="form-control ml-2" type="text" [formControl]="filter" />
+            <a class="btn btn-success" (click)="this.getCars()">RELOAD</a>
+        </div>
+    </form>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Brand </th>
+                <th> Country </th>
+                <th> Registration </th>
 
-            <th scope="row">{{ car.id }}</th>
-            <td>
-                <ngb-highlight [result]="car.brand.name" [term]="filter.value"></ngb-highlight>
-            </td>
-            <td>
-                {{car.country.name}}
-            </td>
-            <td>
-                <ngb-highlight [result]="car.registration | date:'shortDate'" [term]="filter.value"></ngb-highlight>
-            </td>
-            <td>
-            <a class="btn btn-link" routerLink="/cars/{{car.id}}">Details</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars$ | async; index as i">
+
+                <th scope="row">{{ car.id }}</th>
+                <td>
+                    <ngb-highlight [result]="car.brand.name" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td>
+                    {{car.country.name}}
+                </td>
+                <td>
+                    <ngb-highlight [result]="car.registration | date:'MM/dd/yyyy'" [term]="filter.value">
+                    </ngb-highlight>
+                </td>
+                <td>
+                    <a class="btn btn-link" routerLink="/cars/{{car.id}}">Details</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

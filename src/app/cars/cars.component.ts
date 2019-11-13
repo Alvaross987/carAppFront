@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-cars',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
   providers: [DatePipe]
 })
 export class CarsComponent implements OnInit {
-  
+  admin: Boolean;
   car: Car;
   cars: Car[] = [];
   cars$: Observable<Car[]>;
@@ -23,27 +24,31 @@ export class CarsComponent implements OnInit {
     return this.cars.filter(car => {
       const term = text.toLowerCase();
       return car.brand.name.toLowerCase().includes(term)
-        || pipe.transform(car.registration, 'shortDate').includes(term);
+        || pipe.transform(car.registration, 'MM/dd/yyyy').includes(term);
     });
   }
 
   constructor(private carService: CarService,
     private pipe: DatePipe) { }
 
-  ngOnInit() {
-    this.getCars();
-
-  }
-
   add(car: Car): void {
     if (!car) { return; }
       this.carService.addCar(car as Car)
         .subscribe(car => {
           this.cars.push(car);
+          this.getCars();
         });
-    this.getCars();
   }
-
+  
+  authorization(): Boolean {
+    const helper = new JwtHelperService();
+    const token = localStorage.getItem("access_token");
+    const decodedToken = helper.decodeToken(token);
+    if(decodedToken.isadmin == 1){
+      return true;
+    }
+    return false;
+  }
 
   getCars(): void {
     this.cars = null;
@@ -59,4 +64,8 @@ export class CarsComponent implements OnInit {
       map(text => this.search(text, this.pipe)));
   }
 
+  ngOnInit() {
+    this.getCars();
+    this.admin = this.authorization();
+  }
 }
